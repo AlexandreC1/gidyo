@@ -1,0 +1,15 @@
+{
+  "guide_id": "00000000-0000-0000-0000-000000000001",
+  "service_id": "00000000-0000-0000-0000-000000000010",
+  "booking_date": "2025-01-20T00:00:00Z",
+  "time_slot": "09:00 AM - 12:00 PM",
+  "number_of_participants": 2,
+  "pickup_location": "Hotel Montana, Port-au-Prince",
+  "destinations": [
+    "Musée du Panthéon National Haïtien",
+    "Iron Market",
+    "Cathédrale Notre-Dame"
+  ],
+  "special_requests": "Prefer English-speaking guide. Interested in local history and culture.",
+  "total_amount": 110.0
+}

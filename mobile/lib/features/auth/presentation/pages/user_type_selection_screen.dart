@@ -5,6 +5,7 @@ import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../domain/entities/user_entity.dart';
 import '../providers/auth_controller.dart';
+import '../providers/auth_providers.dart';
 
 class UserTypeSelectionScreen extends ConsumerStatefulWidget {
   const UserTypeSelectionScreen({super.key});
@@ -121,11 +122,24 @@ class _UserTypeSelectionScreenState
   Future<void> _handleContinue() async {
     if (_selectedType == null) return;
 
-    // TODO: Update user profile with selected type
-    // This will be implemented when we add profile update functionality
+    final controller = ref.read(authControllerProvider);
+    final success = await controller.updateUserProfile(userType: _selectedType);
 
-    // For now, navigate based on user type
-    // This will be handled by GoRouter in the next step
+    if (!mounted) return;
+
+    if (success) {
+      // Navigation will be handled automatically by GoRouter
+      // based on the updated user type in the redirect logic
+    } else {
+      // Show error message
+      final error = ref.read(authErrorProvider);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error ?? 'Failed to update profile. Please try again.'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
   }
 }
 

@@ -172,6 +172,41 @@ class AuthRemoteDatasource {
     }
   }
 
+  /// Update user profile
+  Future<UserModel> updateUserProfile({
+    String? firstName,
+    String? lastName,
+    String? phone,
+    UserType? userType,
+  }) async {
+    try {
+      final user = _supabase.auth.currentUser;
+      if (user == null) {
+        throw const UnauthorizedException('No user logged in');
+      }
+
+      final Map<String, dynamic> updates = {};
+      if (firstName != null) updates['first_name'] = firstName;
+      if (lastName != null) updates['last_name'] = lastName;
+      if (phone != null) updates['phone'] = phone;
+      if (userType != null) updates['user_type'] = userType.name;
+
+      if (updates.isEmpty) {
+        return await _getUserProfile(user.id);
+      }
+
+      updates['updated_at'] = DateTime.now().toIso8601String();
+
+      await _supabase.from('users').update(updates).eq('id', user.id);
+
+      return await _getUserProfile(user.id);
+    } on UnauthorizedException {
+      rethrow;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
   /// Sign out
   Future<void> signOut() async {
     try {

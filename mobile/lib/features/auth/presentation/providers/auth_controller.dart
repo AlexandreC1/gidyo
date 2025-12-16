@@ -201,6 +201,43 @@ class AuthController {
     }
   }
 
+  /// Update user profile
+  Future<bool> updateUserProfile({
+    String? firstName,
+    String? lastName,
+    String? phone,
+    UserType? userType,
+  }) async {
+    try {
+      _setLoading(true);
+      _clearError();
+
+      final repository = _ref.read(authRepositoryProvider);
+      final result = await repository.updateUserProfile(
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        userType: userType,
+      );
+
+      return result.fold(
+        (failure) {
+          _setError(failure.message);
+          Logger.error('Profile update failed', failure.message);
+          return false;
+        },
+        (user) {
+          Logger.success('Profile updated successfully');
+          // Refresh current user
+          _ref.invalidate(currentUserProvider);
+          return true;
+        },
+      );
+    } finally {
+      _setLoading(false);
+    }
+  }
+
   /// Logout
   Future<void> logout() async {
     try {

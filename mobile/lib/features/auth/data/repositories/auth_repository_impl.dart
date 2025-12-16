@@ -140,6 +140,30 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, UserEntity>> updateUserProfile({
+    String? firstName,
+    String? lastName,
+    String? phone,
+    UserType? userType,
+  }) async {
+    try {
+      final userModel = await _remoteDatasource.updateUserProfile(
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        userType: userType,
+      );
+      return Right(userModel.toEntity());
+    } on AuthException catch (e) {
+      return Left(AuthFailure(e.message));
+    } on NetworkException catch (e) {
+      return Left(NetworkFailure(e.message));
+    } catch (e) {
+      return Left(GenericFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<void> signOut() async {
     await _remoteDatasource.signOut();
   }

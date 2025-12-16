@@ -5,8 +5,23 @@ import '../../features/auth/domain/entities/user_entity.dart';
 import '../../features/auth/presentation/pages/user_type_selection_screen.dart';
 import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/visitor/home/presentation/pages/visitor_home_screen.dart';
+import '../../features/visitor/search/presentation/pages/visitor_search_screen.dart';
+import '../../features/visitor/bookings/presentation/pages/visitor_bookings_screen.dart';
+import '../../features/visitor/messages/presentation/pages/visitor_messages_screen.dart';
+import '../../features/visitor/profile/presentation/pages/visitor_profile_screen.dart';
 import '../../features/guide/dashboard/presentation/pages/guide_dashboard_screen.dart';
+import '../../features/guide/calendar/presentation/pages/guide_calendar_screen.dart';
+import '../../features/guide/bookings/presentation/pages/guide_bookings_screen.dart';
+import '../../features/guide/messages/presentation/pages/guide_messages_screen.dart';
+import '../../features/guide/profile/presentation/pages/guide_profile_screen.dart';
 import '../../features/guide/onboarding/presentation/pages/guide_onboarding_screen.dart';
+import '../../features/guide_profile/presentation/pages/guide_profile_screen.dart' as guide_profile;
+import '../../features/booking/presentation/pages/service_selection_screen.dart';
+import '../../features/booking/presentation/pages/datetime_selection_screen.dart';
+import '../../features/booking/presentation/pages/trip_details_screen.dart';
+import '../../features/booking/presentation/pages/booking_review_screen.dart';
+import '../../features/booking/presentation/pages/payment_screen.dart';
+import '../../features/booking/presentation/pages/booking_confirmation_screen.dart';
 import '../navigation/visitor_navigation_shell.dart';
 import '../navigation/guide_navigation_shell.dart';
 
@@ -75,26 +90,26 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/visitor/search',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: SearchScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: VisitorSearchScreen(),
             ),
           ),
           GoRoute(
             path: '/visitor/bookings',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: VisitorBookingsScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: VisitorBookingsScreen(),
             ),
           ),
           GoRoute(
             path: '/visitor/messages',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: VisitorMessagesScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: VisitorMessagesScreen(),
             ),
           ),
           GoRoute(
             path: '/visitor/profile',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: VisitorProfileScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: VisitorProfileScreen(),
             ),
           ),
         ],
@@ -114,26 +129,26 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/guide/calendar',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: GuideCalendarScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: GuideCalendarScreen(),
             ),
           ),
           GoRoute(
             path: '/guide/bookings',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: GuideBookingsScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: GuideBookingsScreen(),
             ),
           ),
           GoRoute(
             path: '/guide/messages',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: GuideMessagesScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: GuideMessagesScreen(),
             ),
           ),
           GoRoute(
             path: '/guide/profile',
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: const Placeholder(), // TODO: GuideProfileScreen
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: GuideProfileScreen(),
             ),
           ),
         ],
@@ -143,6 +158,50 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/guide/onboarding',
         builder: (context, state) => const GuideOnboardingScreen(),
+      ),
+
+      // Guide Profile (public - accessible to visitors)
+      GoRoute(
+        path: '/guide-profile/:guideId',
+        builder: (context, state) {
+          final guideId = state.pathParameters['guideId']!;
+          return guide_profile.GuideProfileScreen(guideId: guideId);
+        },
+      ),
+
+      // Booking Flow Routes
+      GoRoute(
+        path: '/booking/service/:guideId',
+        builder: (context, state) {
+          final guideId = state.pathParameters['guideId']!;
+          return ServiceSelectionScreen(guideId: guideId);
+        },
+      ),
+      GoRoute(
+        path: '/booking/datetime/:guideId',
+        builder: (context, state) {
+          final guideId = state.pathParameters['guideId']!;
+          return DateTimeSelectionScreen(guideId: guideId);
+        },
+      ),
+      GoRoute(
+        path: '/booking/trip-details',
+        builder: (context, state) => const TripDetailsScreen(),
+      ),
+      GoRoute(
+        path: '/booking/review',
+        builder: (context, state) => const BookingReviewScreen(),
+      ),
+      GoRoute(
+        path: '/booking/payment',
+        builder: (context, state) => const PaymentScreen(),
+      ),
+      GoRoute(
+        path: '/booking/confirmation/:bookingId',
+        builder: (context, state) {
+          final bookingId = state.pathParameters['bookingId']!;
+          return BookingConfirmationScreen(bookingId: bookingId);
+        },
       ),
     ],
   );

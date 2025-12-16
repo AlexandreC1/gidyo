@@ -37,6 +37,14 @@ abstract class AuthRepository {
   /// Get current user
   Future<Either<Failure, UserEntity>> getCurrentUser();
 
+  /// Update user profile
+  Future<Either<Failure, UserEntity>> updateUserProfile({
+    String? firstName,
+    String? lastName,
+    String? phone,
+    UserType? userType,
+  });
+
   /// Sign out
   Future<void> signOut();
 }
