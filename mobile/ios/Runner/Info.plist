@@ -45,5 +45,37 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- Firebase Cloud Messaging -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+		<string>fetch</string>
+	</array>
+
+	<!-- APNs Environment (set to 'production' for release builds) -->
+	<key>aps-environment</key>
+	<string>development</string>
+
+	<!-- Deep linking URL Schemes -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.gidyo.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gidyo</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- Universal Links (App Links) -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:app.gidyo.com</string>
+	</array>
 </dict>
 </plist>
