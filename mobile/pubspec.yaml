@@ -51,6 +51,17 @@ dependencies:
   table_calendar: ^3.1.2
   carousel_slider: ^5.0.0
 
+  # Animation Packages
+  lottie: ^3.1.3
+  flutter_staggered_animations: ^1.1.1
+  flutter_animate: ^4.5.0
+  animated_text_kit: ^4.2.2
+
+  # UI Enhancement Packages
+  glassmorphism: ^3.0.0
+  flutter_blurhash: ^0.8.2
+  smooth_page_indicator: ^1.2.0+3
+
   # Maps & Location
   google_maps_flutter: ^2.9.0
   geolocator: ^13.0.1
@@ -113,6 +124,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/animations/
+    - assets/animations/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
