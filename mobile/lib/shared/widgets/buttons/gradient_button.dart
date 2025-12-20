@@ -86,7 +86,8 @@ class _GradientButtonState extends State<GradientButton>
 
   @override
   Widget build(BuildContext context) {
-    final gradientColors = widget.gradientColors ?? AppColors.accentGradient;
+    final gradientColors = widget.gradientColors ??
+        const [AppColors.accentTeal, AppColors.accentGolden];
 
     return ScaleTransition(
       scale: _scaleAnimation,

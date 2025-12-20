@@ -123,7 +123,7 @@ class GlassmorphicCardWidget extends StatelessWidget {
       margin: margin,
       child: GlassmorphicContainer(
         width: width ?? double.infinity,
-        height: height,
+        height: height ?? 200.0,
         borderRadius: borderRadius,
         blur: blur,
         alignment: alignment ?? Alignment.center,

@@ -4,7 +4,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_dimensions.dart';
 import '../../../../../core/constants/app_animations.dart';
-import '../../../../../shared/widgets/loading/shimmer_guide_card.dart';
 
 class VisitorHomeScreen extends ConsumerWidget {
   const VisitorHomeScreen({super.key});
