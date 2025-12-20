@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_dimensions.dart';
+import '../../../../../core/constants/app_animations.dart';
+import '../../../../../shared/widgets/loading/shimmer_guide_card.dart';
 
 class VisitorHomeScreen extends ConsumerWidget {
   const VisitorHomeScreen({super.key});
@@ -79,15 +82,26 @@ class VisitorHomeScreen extends ConsumerWidget {
                   const SizedBox(height: AppDimensions.paddingM),
                   SizedBox(
                     height: 120,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return _DestinationCard(
-                          name: _destinations[index],
-                          imageUrl: 'https://via.placeholder.com/150',
-                        );
-                      },
+                    child: AnimationLimiter(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: AppAnimations.normal,
+                            child: SlideAnimation(
+                              horizontalOffset: 50.0,
+                              child: FadeInAnimation(
+                                child: _DestinationCard(
+                                  name: _destinations[index],
+                                  imageUrl: 'https://via.placeholder.com/150',
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -121,7 +135,7 @@ class VisitorHomeScreen extends ConsumerWidget {
             ),
           ),
 
-          // Guide List
+          // Guide List with Staggered Animation
           SliverPadding(
             padding: const EdgeInsets.symmetric(
               horizontal: AppDimensions.paddingM,
@@ -129,12 +143,21 @@ class VisitorHomeScreen extends ConsumerWidget {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  return _GuideCard(
-                    name: 'Guide ${index + 1}',
-                    rating: 4.8 + (index * 0.1),
-                    reviews: 120 - (index * 10),
-                    services: ['City Tours', 'Airport Pickup'],
-                    price: 50 + (index * 10),
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: AppAnimations.medium,
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: _GuideCard(
+                          name: 'Guide ${index + 1}',
+                          rating: 4.8 + (index * 0.1),
+                          reviews: 120 - (index * 10),
+                          services: ['City Tours', 'Airport Pickup'],
+                          price: 50 + (index * 10),
+                        ),
+                      ),
+                    ),
                   );
                 },
                 childCount: 5,

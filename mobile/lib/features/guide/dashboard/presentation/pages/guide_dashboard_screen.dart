@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_dimensions.dart';
+import '../../../../../core/constants/app_animations.dart';
+import '../../../../../shared/widgets/cards/animated_stat_card.dart';
 
 class GuideDashboardScreen extends ConsumerWidget {
   const GuideDashboardScreen({super.key});
@@ -43,55 +46,48 @@ class GuideDashboardScreen extends ConsumerWidget {
             ],
           ),
 
-          // Stats Cards
+          // Animated Stats Cards
           SliverToBoxAdapter(
             child: Container(
               color: AppColors.primaryNavy,
               padding: const EdgeInsets.all(AppDimensions.paddingM),
-              child: Column(
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: AppDimensions.paddingM,
+                mainAxisSpacing: AppDimensions.paddingM,
+                childAspectRatio: 1.3,
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _StatCard(
-                          icon: Icons.calendar_today,
-                          value: '12',
-                          label: 'Bookings',
-                          color: AppColors.accentTeal,
-                        ),
-                      ),
-                      const SizedBox(width: AppDimensions.paddingM),
-                      Expanded(
-                        child: _StatCard(
-                          icon: Icons.star,
-                          value: '4.9',
-                          label: 'Rating',
-                          color: AppColors.accentGolden,
-                        ),
-                      ),
-                    ],
+                  AnimatedStatCard(
+                    title: 'Bookings',
+                    value: 12,
+                    icon: Icons.calendar_today,
+                    iconColor: AppColors.accentTeal,
+                    delay: const Duration(milliseconds: 0),
                   ),
-                  const SizedBox(height: AppDimensions.paddingM),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _StatCard(
-                          icon: Icons.attach_money,
-                          value: '\$1,250',
-                          label: 'Earnings',
-                          color: AppColors.success,
-                        ),
-                      ),
-                      const SizedBox(width: AppDimensions.paddingM),
-                      Expanded(
-                        child: _StatCard(
-                          icon: Icons.people,
-                          value: '89',
-                          label: 'Reviews',
-                          color: AppColors.info,
-                        ),
-                      ),
-                    ],
+                  AnimatedStatCard(
+                    title: 'Rating',
+                    value: 4.9,
+                    icon: Icons.star,
+                    iconColor: AppColors.accentGolden,
+                    decimalPlaces: 1,
+                    delay: const Duration(milliseconds: 50),
+                  ),
+                  AnimatedStatCard(
+                    title: 'Earnings',
+                    value: 1250,
+                    icon: Icons.attach_money,
+                    iconColor: AppColors.success,
+                    prefix: '\$',
+                    delay: const Duration(milliseconds: 100),
+                  ),
+                  AnimatedStatCard(
+                    title: 'Reviews',
+                    value: 89,
+                    icon: Icons.people,
+                    iconColor: AppColors.info,
+                    delay: const Duration(milliseconds: 150),
                   ),
                 ],
               ),
@@ -160,7 +156,7 @@ class GuideDashboardScreen extends ConsumerWidget {
             ),
           ),
 
-          // Booking Cards
+          // Booking Cards with Animation
           SliverPadding(
             padding: const EdgeInsets.symmetric(
               horizontal: AppDimensions.paddingM,
@@ -168,12 +164,21 @@ class GuideDashboardScreen extends ConsumerWidget {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  return _BookingCard(
-                    visitorName: 'Visitor ${index + 1}',
-                    service: 'City Tour',
-                    date: 'Tomorrow, 10:00 AM',
-                    amount: 100 + (index * 20),
-                    status: index == 0 ? 'Confirmed' : 'Pending',
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: AppAnimations.normal,
+                    child: SlideAnimation(
+                      horizontalOffset: 100.0,
+                      child: FadeInAnimation(
+                        child: _BookingCard(
+                          visitorName: 'Visitor ${index + 1}',
+                          service: 'City Tour',
+                          date: 'Tomorrow, 10:00 AM',
+                          amount: 100 + (index * 20),
+                          status: index == 0 ? 'Confirmed' : 'Pending',
+                        ),
+                      ),
+                    ),
                   );
                 },
                 childCount: 3,

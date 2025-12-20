@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/constants/app_animations.dart';
 import '../providers/booking_providers.dart';
 
 class BookingConfirmationScreen extends ConsumerWidget {
@@ -28,47 +31,60 @@ class BookingConfirmationScreen extends ConsumerWidget {
           children: [
             const SizedBox(height: AppDimensions.paddingXL),
 
-            // Success Animation/Icon
-            TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0.0, end: 1.0),
-              duration: const Duration(milliseconds: 600),
-              builder: (context, value, child) {
-                return Transform.scale(
-                  scale: value,
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: AppColors.success,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.success.withOpacity(0.3),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
+            // Lottie Success Animation
+            Lottie.asset(
+              AppAnimations.successAnimation,
+              width: AppAnimations.lottieSizeMedium,
+              height: AppAnimations.lottieSizeMedium,
+              repeat: false,
+              // Fallback to animated icon if Lottie fails
+              errorBuilder: (context, error, stackTrace) {
+                return TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: const Duration(milliseconds: 600),
+                  builder: (context, value, child) {
+                    return Transform.scale(
+                      scale: value,
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: AppColors.success,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.success.withOpacity(0.3),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.check,
-                      size: 80,
-                      color: AppColors.white,
-                    ),
-                  ),
+                        child: const Icon(
+                          Icons.check,
+                          size: 80,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
 
             const SizedBox(height: AppDimensions.paddingXL),
 
-            // Success Message
+            // Success Message with animation
             Text(
               'Booking Confirmed!',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
               textAlign: TextAlign.center,
-            ),
+            ).animate().fadeIn(delay: 300.ms, duration: 400.ms).slideY(
+                  begin: 0.2,
+                  end: 0,
+                  duration: 400.ms,
+                ),
 
             const SizedBox(height: AppDimensions.paddingM),
 
@@ -78,11 +94,15 @@ class BookingConfirmationScreen extends ConsumerWidget {
                     color: AppColors.textSecondary,
                   ),
               textAlign: TextAlign.center,
-            ),
+            ).animate().fadeIn(delay: 500.ms, duration: 400.ms).slideY(
+                  begin: 0.2,
+                  end: 0,
+                  duration: 400.ms,
+                ),
 
             const SizedBox(height: AppDimensions.paddingXL),
 
-            // Booking Reference
+            // Booking Reference with animation
             Container(
               padding: const EdgeInsets.all(AppDimensions.paddingL),
               decoration: BoxDecoration(
@@ -109,7 +129,11 @@ class BookingConfirmationScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-            ),
+            ).animate().fadeIn(delay: 700.ms, duration: 400.ms).scale(
+                  begin: const Offset(0.95, 0.95),
+                  end: const Offset(1.0, 1.0),
+                  duration: 400.ms,
+                ),
 
             const SizedBox(height: AppDimensions.paddingXL),
 
