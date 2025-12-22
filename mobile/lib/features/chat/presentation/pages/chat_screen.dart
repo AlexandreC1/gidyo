@@ -281,7 +281,11 @@ class _MessageBubble extends StatelessWidget {
                 vertical: AppDimensions.paddingS,
               ),
               decoration: BoxDecoration(
-                color: isMe ? AppColors.accentTeal : AppColors.lightGray,
+                color: isMe
+                    ? (message.isRead
+                        ? AppColors.accentTeal.withOpacity(0.7)  // Lighter color when read
+                        : AppColors.accentTeal)  // Full color when unread
+                    : AppColors.lightGray,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(AppDimensions.radiusM),
                   topRight: const Radius.circular(AppDimensions.radiusM),
