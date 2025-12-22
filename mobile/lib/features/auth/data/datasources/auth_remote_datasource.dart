@@ -1,5 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions.dart' as core_exceptions;
 import '../models/user_model.dart';
 import '../../domain/entities/user_entity.dart';
 
@@ -17,14 +17,14 @@ class AuthRemoteDatasource {
       );
 
       if (response.user == null) {
-        throw const AuthException('Login failed');
+        throw const core_exceptions.AuthException('Login failed');
       }
 
       return await _getUserProfile(response.user!.id);
-    } on AuthException {
+    } on core_exceptions.AuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -44,7 +44,7 @@ class AuthRemoteDatasource {
       );
 
       if (response.user == null) {
-        throw const AuthException('Registration failed');
+        throw const core_exceptions.AuthException('Registration failed');
       }
 
       // Create user profile
@@ -60,10 +60,10 @@ class AuthRemoteDatasource {
       });
 
       return await _getUserProfile(response.user!.id);
-    } on AuthException {
+    } on core_exceptions.AuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -76,19 +76,19 @@ class AuthRemoteDatasource {
       );
 
       if (!response) {
-        throw const AuthException('Google sign-in failed');
+        throw const core_exceptions.AuthException('Google sign-in failed');
       }
 
       final user = _supabase.auth.currentUser;
       if (user == null) {
-        throw const AuthException('No user found after Google sign-in');
+        throw const core_exceptions.AuthException('No user found after Google sign-in');
       }
 
       return await _getUserProfile(user.id);
-    } on AuthException {
+    } on core_exceptions.AuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -101,19 +101,19 @@ class AuthRemoteDatasource {
       );
 
       if (!response) {
-        throw const AuthException('Apple sign-in failed');
+        throw const core_exceptions.AuthException('Apple sign-in failed');
       }
 
       final user = _supabase.auth.currentUser;
       if (user == null) {
-        throw const AuthException('No user found after Apple sign-in');
+        throw const core_exceptions.AuthException('No user found after Apple sign-in');
       }
 
       return await _getUserProfile(user.id);
-    } on AuthException {
+    } on core_exceptions.AuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -122,7 +122,7 @@ class AuthRemoteDatasource {
     try {
       await _supabase.auth.signInWithOtp(phone: phone);
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -136,14 +136,14 @@ class AuthRemoteDatasource {
       );
 
       if (response.user == null) {
-        throw const AuthException('OTP verification failed');
+        throw const core_exceptions.AuthException('OTP verification failed');
       }
 
       return await _getUserProfile(response.user!.id);
-    } on AuthException {
+    } on core_exceptions.AuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -152,7 +152,7 @@ class AuthRemoteDatasource {
     try {
       await _supabase.auth.resetPasswordForEmail(email);
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -161,14 +161,14 @@ class AuthRemoteDatasource {
     try {
       final user = _supabase.auth.currentUser;
       if (user == null) {
-        throw const UnauthorizedException('No user logged in');
+        throw const core_exceptions.UnauthorizedException('No user logged in');
       }
 
       return await _getUserProfile(user.id);
-    } on UnauthorizedException {
+    } on core_exceptions.UnauthorizedException {
       rethrow;
     } catch (e) {
-      throw ServerException(e.toString());
+      throw core_exceptions.ServerException(e.toString());
     }
   }
 
@@ -182,7 +182,7 @@ class AuthRemoteDatasource {
     try {
       final user = _supabase.auth.currentUser;
       if (user == null) {
-        throw const UnauthorizedException('No user logged in');
+        throw const core_exceptions.UnauthorizedException('No user logged in');
       }
 
       final Map<String, dynamic> updates = {};
@@ -200,10 +200,10 @@ class AuthRemoteDatasource {
       await _supabase.from('users').update(updates).eq('id', user.id);
 
       return await _getUserProfile(user.id);
-    } on UnauthorizedException {
+    } on core_exceptions.UnauthorizedException {
       rethrow;
     } catch (e) {
-      throw ServerException(e.toString());
+      throw core_exceptions.ServerException(e.toString());
     }
   }
 
@@ -212,7 +212,7 @@ class AuthRemoteDatasource {
     try {
       await _supabase.auth.signOut();
     } catch (e) {
-      throw AuthException(e.toString());
+      throw core_exceptions.AuthException(e.toString());
     }
   }
 
@@ -227,7 +227,7 @@ class AuthRemoteDatasource {
 
       return UserModel.fromJson(response);
     } catch (e) {
-      throw ServerException(e.toString());
+      throw core_exceptions.ServerException(e.toString());
     }
   }
 }

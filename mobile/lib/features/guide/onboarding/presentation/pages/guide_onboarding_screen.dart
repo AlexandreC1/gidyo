@@ -140,7 +140,6 @@ class _ReviewScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Review & Submit'),
-        subtitle: const Text('Step 7 of 7'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),

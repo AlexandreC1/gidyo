@@ -17,7 +17,7 @@ abstract class GuideProfileRepository {
   Future<Either<Failure, List<DateTime>>> getGuideAvailability(
     String guideId,
     DateTime month,
-  });
+  );
 
   /// Add guide to favorites
   Future<Either<Failure, void>> addToFavorites(String guideId);

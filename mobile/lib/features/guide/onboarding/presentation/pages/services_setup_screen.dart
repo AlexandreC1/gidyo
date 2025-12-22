@@ -130,7 +130,6 @@ class _ServicesSetupScreenState extends ConsumerState<ServicesSetupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Services Setup'),
-        subtitle: const Text('Step 3 of 7'),
       ),
       body: Column(
         children: [

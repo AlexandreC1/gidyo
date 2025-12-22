@@ -125,7 +125,6 @@ class _IdentificationScreenState extends ConsumerState<IdentificationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Identification'),
-        subtitle: const Text('Step 2 of 7'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(AppDimensions.paddingL),

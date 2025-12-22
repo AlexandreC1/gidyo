@@ -121,7 +121,7 @@ class AppTheme {
       ),
 
       // Card Theme
-      cardTheme: const CardTheme(
+      cardTheme: const CardThemeData(
         elevation: AppDimensions.cardElevation,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(

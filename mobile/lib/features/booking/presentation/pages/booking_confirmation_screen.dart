@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_animations.dart';
+import '../../domain/entities/booking_entity.dart';
 import '../providers/booking_providers.dart';
 
 class BookingConfirmationScreen extends ConsumerWidget {

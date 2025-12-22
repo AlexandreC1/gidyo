@@ -325,7 +325,7 @@ class ChatRemoteDatasource {
             'status': 'read',
             'read_at': DateTime.now().toIso8601String(),
           })
-          .in_('id', messageIds)
+          .inFilter('id', messageIds)
           .neq('sender_id', userId);
 
       // Update unread count

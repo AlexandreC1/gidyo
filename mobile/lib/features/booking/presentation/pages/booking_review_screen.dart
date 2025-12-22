@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
+import '../../domain/entities/booking_entity.dart';
 import '../providers/booking_providers.dart';
 
 class BookingReviewScreen extends ConsumerStatefulWidget {

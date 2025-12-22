@@ -1,3 +1,5 @@
+import 'dart:math' show cos, sqrt, asin;
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/search_params_entity.dart';
@@ -54,7 +56,7 @@ class SearchRemoteDatasource {
 
       // Apply service type filter
       if (params.serviceTypeIds.isNotEmpty) {
-        query = query.in_(
+        query = query.inFilter(
           'guide_services.service_type_id',
           params.serviceTypeIds,
         );
@@ -91,11 +93,9 @@ class SearchRemoteDatasource {
             try {
               // Flatten the nested user data
               final userData = json['users'];
-              final guideData = {
-                ...json,
-                'first_name': userData['first_name'],
-                'last_name': userData['last_name'],
-              };
+              final guideData = Map<String, dynamic>.from(json);
+              guideData['first_name'] = userData['first_name'];
+              guideData['last_name'] = userData['last_name'];
               guideData.remove('users');
 
               return GuideModel.fromJson(guideData);
@@ -227,6 +227,3 @@ class SearchRemoteDatasource {
     }
   }
 }
-
-// Import math functions
-import 'dart:math' show cos, sqrt, asin;

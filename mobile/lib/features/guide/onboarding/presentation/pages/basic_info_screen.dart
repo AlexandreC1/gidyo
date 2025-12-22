@@ -233,7 +233,6 @@ class _BasicInfoScreenState extends ConsumerState<BasicInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Basic Information'),
-        subtitle: const Text('Step 1 of 7'),
       ),
       body: Form(
         key: _formKey,

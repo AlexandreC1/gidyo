@@ -1,3 +1,5 @@
+import 'dart:math' show sin, cos, sqrt, asin;
+
 import 'package:intl/intl.dart';
 
 class Helpers {
@@ -89,13 +91,13 @@ class Helpers {
     final dLat = _toRadians(lat2 - lat1);
     final dLon = _toRadians(lon2 - lon1);
 
-    final a = (dLat / 2).sin() * (dLat / 2).sin() +
-        _toRadians(lat1).cos() *
-            _toRadians(lat2).cos() *
-            (dLon / 2).sin() *
-            (dLon / 2).sin();
+    final a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(_toRadians(lat1)) *
+            cos(_toRadians(lat2)) *
+            sin(dLon / 2) *
+            sin(dLon / 2);
 
-    final c = 2 * a.sqrt().asin();
+    final c = 2 * asin(sqrt(a));
     return r * c;
   }
 

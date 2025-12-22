@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../guide_profile/presentation/providers/guide_profile_providers.dart';
+import '../../domain/entities/booking_entity.dart';
 import '../providers/booking_providers.dart';
 
 class DateTimeSelectionScreen extends ConsumerStatefulWidget {
