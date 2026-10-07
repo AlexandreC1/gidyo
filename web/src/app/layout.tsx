@@ -14,9 +14,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "GIDYO - Trusted Local Guides in Haiti",
-  description: "Connect with verified local guides for safe, authentic experiences across Haiti. Airport pickups, cultural tours, daily drivers, and more.",
-  keywords: ["Haiti", "local guides", "travel", "tourism", "Port-au-Prince", "Cap-Haïtien", "Jacmel", "tours"],
+  title: "GIDYO — Haiti, through local eyes",
+  description: "Go beyond the itinerary. GIDYO is building a thoughtful, human-reviewed way to explore Haiti through local perspectives.",
+  keywords: ["Haiti", "local perspectives", "travel", "stories", "art", "food", "neighborhood life"],
 };
 
 export default function RootLayout({
